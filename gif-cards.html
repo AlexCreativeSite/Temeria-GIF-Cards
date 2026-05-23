@@ -3,303 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎞️ Gift Cards Auto Publisher</title>
+<title>Gift Cards</title>
+
 <style>
-:root{--panel:#111827;--txt:#eafcff;--muted:#a8c7d8;--cyan:#00f6ff;--violet:#b06cff}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:24px;background:radial-gradient(circle at top,#182033,#070a12 58%,#020617),linear-gradient(135deg,#020617,#111827);color:var(--txt);font-family:Arial,sans-serif}
-.container{max-width:1180px;margin:auto}
-h1{text-align:center;margin:10px 0 6px;font-size:34px;color:var(--cyan);text-shadow:0 0 20px var(--cyan),0 0 45px var(--violet)}
-.subtitle{text-align:center;color:var(--muted);margin-bottom:22px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}body{padding:14px}}
-.box{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),var(--panel);border:1px solid rgba(0,246,255,.22);border-radius:22px;padding:18px;box-shadow:0 0 35px rgba(0,246,255,.08),0 0 55px rgba(176,108,255,.08),0 22px 60px rgba(0,0,0,.35)}
-label{display:block;margin-top:13px;font-weight:bold;color:#8dfcff}
-input,textarea,select{width:100%;margin-top:6px;padding:12px;border-radius:14px;border:1px solid rgba(0,246,255,.28);background:#0b1220;color:white;outline:none}
-textarea{resize:vertical;min-height:90px}
-button,.link-btn{display:inline-block;border:none;border-radius:999px;padding:12px 18px;margin:6px 6px 0 0;cursor:pointer;font-weight:bold;text-decoration:none;color:white;background:linear-gradient(90deg,var(--cyan),var(--violet));box-shadow:0 0 22px rgba(176,108,255,.28)}
-button.green{background:linear-gradient(90deg,#25d366,#4bf58a);color:#052e16}
-button.dark{background:linear-gradient(90deg,#334155,#111827)}
-button.danger{background:linear-gradient(90deg,#ef4444,#fb7185)}
-.gif-card-tab{background:linear-gradient(135deg,#0b1020,#151a33);border:1px solid rgba(0,246,255,.22);border-radius:22px;overflow:hidden;max-width:420px;margin:auto;box-shadow:0 0 35px rgba(0,246,255,.08),0 0 55px rgba(176,108,255,.10)}
-.gif-card-tab iframe{width:100%;height:320px;border:none;display:block;background:#000}
-pre{white-space:pre-wrap;word-break:break-word;background:#020617;color:#d9faff;border:1px solid rgba(0,246,255,.22);border-radius:16px;padding:14px;min-height:260px;max-height:520px;overflow:auto}
-.small-note{color:var(--muted);font-size:13px;line-height:1.45;margin-top:10px}
-.status{margin-top:12px;padding:12px;border-radius:14px;background:#020617;border:1px solid rgba(0,246,255,.18);color:#d9faff;white-space:pre-wrap;min-height:48px}
-.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(0,246,255,.10);color:#8dfcff;font-size:12px;border:1px solid rgba(0,246,255,.22);margin:4px 4px 0 0}
+body{
+  margin:0;
+  min-height:100vh;
+  padding:24px;
+  background:radial-gradient(circle at top,#182033,#070a12 58%,#020617);
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+}
+
+h1{
+  text-align:center;
+  color:#00f6ff;
+}
+
+.subtitle{
+  text-align:center;
+  color:#a8c7d8;
+  margin-bottom:30px;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:22px;
+  align-items:start;
+}
+
+.empty{
+  padding:28px;
+  text-align:center;
+  border:1px dashed rgba(0,246,255,.25);
+  border-radius:22px;
+  color:#a8c7d8;
+}
 </style>
 </head>
+
 <body>
 <div class="container">
-<h1>🎞️ Gift Cards Auto Publisher</h1>
-<div class="subtitle">Importa le card pubblicate dal Forge nella repository autonoma <b>Temeria-Gift-Cards</b>.</div>
 
-<div class="grid">
-<div class="box">
-<h2>✨ Dati Card</h2>
-<label>Link card pubblicata dal Forge</label>
-<input id="cardUrl" placeholder="https://alexcreativesite.github.io/Temeria-Media-Suite/cards/nome-card.html">
-<label>Titolo</label>
-<input id="title" placeholder="Es. Buonasera">
-<label>Categoria</label>
-<select id="category"><option>Buongiorno</option><option>Buonasera</option><option>Buonanotte</option><option>Temeria</option><option>Musica</option><option>Eventi</option><option>Speciali</option></select>
-<label>Descrizione breve</label>
-<textarea id="desc" placeholder="Piccola descrizione poetica della card..."></textarea>
-<div style="margin-top:16px;">
-<button onclick="generateTab()">⚡ Genera Tab</button>
-<button class="green" onclick="copyCode()">📋 Copia Codice</button>
-<button class="dark" onclick="downloadBlock()">⬇️ Scarica Blocco</button>
-<button class="danger" onclick="resetForm()">Reset</button>
-</div>
-<div class="small-note">La tab usa un iframe: la card resta pubblicata dal Forge, questa pagina crea solo la vetrina.</div>
+<h1>🎞️ Gift Cards</h1>
+
+<div class="subtitle">
+  Galleria delle card pubblicate con Temeria Forge.
 </div>
 
-<div class="box">
-<h2>👁️ Anteprima reale</h2>
-<div id="previewHost"></div>
-</div>
-</div>
+<div class="gallery">
 
-<div class="box" style="margin-top:18px;">
-<h2>🚀 Pubblicazione automatica su GitHub</h2>
-<div class="grid">
-<div><label>GitHub Token</label><input id="githubToken" type="password" placeholder="Token GitHub con permesso Contents Read/Write"></div>
-<div><label>Pagina da aggiornare</label><input id="targetPath" value="gif-cards.html"></div>
-</div>
-<div class="grid">
-<div><label>Repository Owner</label><input id="repoOwner" value="AlexCreativeSite"></div>
-<div><label>Repository Name</label><input id="repoName" value="Temeria-Gift-Cards"></div>
-</div>
-<div class="grid">
-<div><label>Branch</label><input id="branchName" value="main"></div>
-<div><label>URL pubblico pagina finale</label><input id="publicPageUrl" value="https://alexcreativesite.github.io/Temeria-Gift-Cards/gif-cards.html"></div>
-</div>
-<div style="margin-top:14px;">
-<button class="green" onclick="publishToGitHub()">🚀 Importa nella pagina e pubblica</button>
-<button class="dark" onclick="saveSettings()">💾 Salva impostazioni</button>
-<button onclick="openFinalPage()">🌐 Apri Gift Cards</button>
-</div>
-<div class="small-note">Serve che <b>gif-cards.html</b> contenga i marker:
-<span class="pill">&lt;!-- TEMERIA_GIF_CARDS_START --&gt;</span>
-<span class="pill">&lt;!-- TEMERIA_GIF_CARDS_END --&gt;</span>
-</div>
-<div id="status" class="status">Pronto.</div>
+<!-- TEMERIA_GIF_CARDS_START -->
+
+<div class="empty">
+  Nessuna Gift Card ancora importata.
 </div>
 
-<div class="box" style="margin-top:18px;">
-<h2>📦 Codice HTML della tab</h2>
-<pre id="codeBox"></pre>
-</div>
+<!-- TEMERIA_GIF_CARDS_END -->
+
 </div>
 
-<script>
-const START_MARKER="<!-- TEMERIA_GIF_CARDS_START -->";
-const END_MARKER="<!-- TEMERIA_GIF_CARDS_END -->";
-
-function esc(str){return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-function attr(str){return String(str||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-function setStatus(msg){document.getElementById("status").textContent=msg}
-function slugify(str){return String(str||"temeria-card").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,80)||"temeria-card"}
-
-function buildCardTab(){
-const cardUrl=document.getElementById("cardUrl").value.trim();
-const title=document.getElementById("title").value.trim()||"Gift Card";
-const category=document.getElementById("category").value;
-const desc=document.getElementById("desc").value.trim();
-const id="giftcard-"+slugify(title)+"-"+Date.now();
-const wa="https://wa.me/?text="+encodeURIComponent(cardUrl);
-return `
-<div class="gif-card-tab" id="${attr(id)}" data-category="${attr(category)}" style="background:linear-gradient(135deg,#0b1020,#151a33);border:1px solid rgba(0,246,255,.22);border-radius:22px;overflow:hidden;max-width:420px;margin:auto;box-shadow:0 0 35px rgba(0,246,255,.08),0 0 55px rgba(176,108,255,.10);">
-  <iframe src="${attr(cardUrl)}" loading="lazy" style="width:100%;height:320px;border:none;display:block;background:#000;"></iframe>
-  <div style="padding:16px;color:white;font-family:Arial,sans-serif;">
-    <div style="display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(0,246,255,.12);color:#8dfcff;font-size:12px;border:1px solid rgba(0,246,255,.25);margin-bottom:10px;">${esc(category)}</div>
-    <div style="font-size:22px;font-weight:bold;margin-bottom:8px;text-shadow:0 0 16px rgba(0,246,255,.28);">${esc(title)}</div>
-    <div style="color:#cbd5e1;line-height:1.55;margin-bottom:14px;">${esc(desc)}</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-     <a 
-  href="${attr(cardUrl)}"
-  target="_blank"
-  rel="noopener"
-  style="
-    padding:10px 14px;
-    border-radius:999px;
-    background:linear-gradient(90deg,#00f6ff,#b06cff);
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-  "
->
-✨ Apri Card
-</a>
-
-<button
-  class="copy-link-btn"
-  data-copy="${attr(cardUrl)}"
-  style="
-    padding:10px 14px;
-    border:none;
-    border-radius:999px;
-    background:#111827;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-  "
->
-📋 Copia Link
-</button>
-
-<a
-  href="${attr(wa)}"
-  target="_blank"
-  rel="noopener"
-  style="
-    padding:10px 14px;
-    border-radius:999px;
-    background:linear-gradient(90deg,#25d366,#4bf58a);
-    color:#052e16;
-    text-decoration:none;
-    font-weight:bold;
-  "
->
-💬 WhatsApp
-</a>
-    </div>
-  </div>
-</div>`.trim()
-}
-
-function generateTab(){const html=buildCardTab();document.getElementById("codeBox").textContent=html;document.getElementById("previewHost").innerHTML=html;return html}
-
-async function copyCode(){
-if(!document.getElementById("codeBox").textContent.trim()) generateTab();
-try{await navigator.clipboard.writeText(document.getElementById("codeBox").textContent);alert("Codice copiato!")}catch(e){alert("Copia non riuscita. Copia manualmente dal box.")}
-}
-
-function downloadBlock(){
-if(!document.getElementById("codeBox").textContent.trim()) generateTab();
-const blob=new Blob([document.getElementById("codeBox").textContent],{type:"text/html"});
-const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="gift-card-tab.html";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)
-}
-
-function resetForm(){
-["cardUrl","title","desc"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
-document.getElementById("category").value="Buongiorno";document.getElementById("previewHost").innerHTML="";document.getElementById("codeBox").textContent="";setStatus("Pronto.")
-}
-
-function saveSettings(){
-const settings={
-repoOwner:document.getElementById("repoOwner").value.trim(),
-repoName:document.getElementById("repoName").value.trim(),
-branchName:document.getElementById("branchName").value.trim(),
-targetPath:document.getElementById("targetPath").value.trim(),
-publicPageUrl:document.getElementById("publicPageUrl").value.trim(),
-githubToken:document.getElementById("githubToken").value.trim()
-};
-localStorage.setItem("TEMERIA_GIF_PUBLISH_SETTINGS",JSON.stringify(settings));
-if(settings.githubToken){localStorage.setItem("TEMERIA_GITHUB_TOKEN",settings.githubToken)}
-setStatus("Impostazioni salvate.")
-}
-
-function loadSettings(){
-try{
-const raw=localStorage.getItem("TEMERIA_GIF_PUBLISH_SETTINGS");
-const defaults={repoOwner:"AlexCreativeSite",repoName:"Temeria-Gift-Cards",branchName:"main",targetPath:"gif-cards.html",publicPageUrl:"https://alexcreativesite.github.io/Temeria-Gift-Cards/gif-cards.html",githubToken:localStorage.getItem("TEMERIA_GITHUB_TOKEN")||""};
-const saved=raw?JSON.parse(raw):{};
-const s={...defaults,...saved};
-["repoOwner","repoName","branchName","targetPath","publicPageUrl","githubToken"].forEach(id=>{if(document.getElementById(id)){document.getElementById(id).value=s[id]||""}})
-}catch(e){console.warn(e)}
-}
-
-function openFinalPage(){const url=document.getElementById("publicPageUrl").value.trim();if(url)window.open(url,"_blank")}
-function toBase64Unicode(str){const bytes=new TextEncoder().encode(str);let binary="";bytes.forEach(b=>binary+=String.fromCharCode(b));return btoa(binary)}
-function fromBase64Unicode(base64){const binary=atob(base64.replace(/\\n/g,""));const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));return new TextDecoder().decode(bytes)}
-
-async function githubRequest(url,options){
-const token=document.getElementById("githubToken").value.trim();
-if(!token){throw new Error("Token GitHub mancante")}
-const res=await fetch(url,{...options,headers:{"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json","Content-Type":"application/json",...(options&&options.headers?options.headers:{})}});
-const data=await res.json().catch(()=>null);
-if(!res.ok){console.error(data);throw new Error(data?.message||"Errore GitHub API")}
-return data
-}
-
-async function getGithubFile(){
-const owner=document.getElementById("repoOwner").value.trim();
-const repo=document.getElementById("repoName").value.trim();
-const branch=document.getElementById("branchName").value.trim();
-const path=document.getElementById("targetPath").value.trim();
-const api=`https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;
-return await githubRequest(api,{method:"GET"})
-}
-
-async function putGithubFile(newHtml,sha){
-const owner=document.getElementById("repoOwner").value.trim();
-const repo=document.getElementById("repoName").value.trim();
-const branch=document.getElementById("branchName").value.trim();
-const path=document.getElementById("targetPath").value.trim();
-const title=document.getElementById("title").value.trim()||"Gift Card";
-const api=`https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
-return await githubRequest(api,{method:"PUT",body:JSON.stringify({message:"Add Gift Card tab: "+title,content:toBase64Unicode(newHtml),sha:sha,branch:branch})})
-}
-
-function injectCardIntoPage(pageHtml,cardHtml){
-if(!pageHtml.includes(START_MARKER)||!pageHtml.includes(END_MARKER)){throw new Error("Marker non trovati in gif-cards.html. Aggiungi TEMERIA_GIF_CARDS_START e TEMERIA_GIF_CARDS_END.")}
-const startIndex=pageHtml.indexOf(START_MARKER)+START_MARKER.length;
-const endIndex=pageHtml.indexOf(END_MARKER);
-const before=pageHtml.slice(0,startIndex);
-const current=pageHtml.slice(startIndex,endIndex);
-const after=pageHtml.slice(endIndex);
-const block="\\n\\n<!-- TEMERIA_GIF_CARD_ITEM -->\\n"+cardHtml+"\\n<!-- /TEMERIA_GIF_CARD_ITEM -->\\n";
-return before+block+current+after
-}
-
-async function publishToGitHub(){
-try{
-saveSettings();
-const cardUrl=document.getElementById("cardUrl").value.trim();
-if(!cardUrl){alert("Inserisci prima il link della card Forge.");return}
-const cardHtml=generateTab();
-setStatus("1/4 Lettura gif-cards.html da GitHub...");
-const file=await getGithubFile();
-setStatus("2/4 Decodifica pagina esistente...");
-const oldHtml=fromBase64Unicode(file.content);
-setStatus("3/4 Inserimento nuova tab nei marker...");
-const newHtml=injectCardIntoPage(oldHtml,cardHtml);
-setStatus("4/4 Upload commit su GitHub...");
-await putGithubFile(newHtml,file.sha);
-const finalUrl=document.getElementById("publicPageUrl").value.trim();
-setStatus("✅ Pubblicazione completata!\\n\\nPagina aggiornata:\\n"+finalUrl+"\\n\\nAspetta qualche secondo per il deploy/cache, poi apri la pagina.");
-if(finalUrl){window.open(finalUrl+(finalUrl.includes("?")?"&":"?")+"v="+Date.now(),"_blank")}
-}catch(err){console.error(err);setStatus("❌ Errore:\\n"+err.message);alert("Errore publish:\\n"+err.message)}
-}
-
-document.querySelectorAll("input,textarea,select").forEach(el=>{el.addEventListener("input",generateTab);el.addEventListener("change",generateTab)});
-loadSettings();
-generateTab();
-
-document.addEventListener("click", async (e) => {
-
-  const btn = e.target.closest(".copy-link-btn");
-
-  if (!btn) return;
-
-  const text = btn.dataset.copy;
-
-  try {
-
-    await navigator.clipboard.writeText(text);
-
-    alert("Link copiato!");
-
-  } catch (err) {
-
-    console.error(err);
-
-    alert("Errore copia link");
-
-  }
-
-});
-</script>
+</div>
 </body>
 </html>
