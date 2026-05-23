@@ -1,3 +1,35 @@
+Skip to content
+AlexCreativeSite
+Temeria-GIF-Cards
+Repository navigation
+Code
+Issues
+Pull requests
+Agents
+Actions
+Projects
+Wiki
+Security and quality
+Insights
+Settings
+Temeria-GIF-Cards
+/gif-cards.html
+Go to file
+t
+T
+AlexCreativeSite
+AlexCreativeSite
+Update title and styles for Gift Cards page
+d6e1154
+ · 
+16 minutes ago
+237 lines (217 loc) · 14.4 KB
+Temeria-GIF-Cards
+/gif-cards.html
+
+Code
+
+Blame
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -116,9 +148,53 @@ return `
     <div style="font-size:22px;font-weight:bold;margin-bottom:8px;text-shadow:0 0 16px rgba(0,246,255,.28);">${esc(title)}</div>
     <div style="color:#cbd5e1;line-height:1.55;margin-bottom:14px;">${esc(desc)}</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <a href="${attr(cardUrl)}" target="_blank" rel="noopener" style="padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#00f6ff,#b06cff);color:white;text-decoration:none;font-weight:bold;">✨ Apri Card</a>
-      <button onclick="navigator.clipboard.writeText('${attr(cardUrl)}')" style="padding:10px 14px;border:none;border-radius:999px;background:#111827;color:white;cursor:pointer;font-weight:bold;">📋 Copia Link</button>
-      <a href="${attr(wa)}" target="_blank" rel="noopener" style="padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#25d366,#4bf58a);color:#052e16;text-decoration:none;font-weight:bold;">💬 WhatsApp</a>
+     <a 
+  href="${attr(cardUrl)}"
+  target="_blank"
+  rel="noopener"
+  style="
+    padding:10px 14px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#00f6ff,#b06cff);
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+  "
+>
+✨ Apri Card
+</a>
+
+<button
+  class="copy-link-btn"
+  data-copy="${attr(cardUrl)}"
+  style="
+    padding:10px 14px;
+    border:none;
+    border-radius:999px;
+    background:#111827;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+  "
+>
+📋 Copia Link
+</button>
+
+<a
+  href="${attr(wa)}"
+  target="_blank"
+  rel="noopener"
+  style="
+    padding:10px 14px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#25d366,#4bf58a);
+    color:#052e16;
+    text-decoration:none;
+    font-weight:bold;
+  "
+>
+💬 WhatsApp
+</a>
     </div>
   </div>
 </div>`.trim()
@@ -232,6 +308,30 @@ if(finalUrl){window.open(finalUrl+(finalUrl.includes("?")?"&":"?")+"v="+Date.now
 document.querySelectorAll("input,textarea,select").forEach(el=>{el.addEventListener("input",generateTab);el.addEventListener("change",generateTab)});
 loadSettings();
 generateTab();
+
+document.addEventListener("click", async (e) => {
+
+  const btn = e.target.closest(".copy-link-btn");
+
+  if (!btn) return;
+
+  const text = btn.dataset.copy;
+
+  try {
+
+    await navigator.clipboard.writeText(text);
+
+    alert("Link copiato!");
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Errore copia link");
+
+  }
+
+});
 </script>
 </body>
 </html>
